@@ -134,7 +134,8 @@ df.excel_yn.value_counts()
 df['aws_yn'] = df.Description.apply(lambda x: 1 if 'aws' in x.lower() else 0)
 df.aws_yn.value_counts()
 
-
+git commit -m 'name_commit'
+git push origin master
 
 ### END OF CLEAN
 # (float(hourly_clean[1400].split()[0])+float(hourly_clean[1400].split()[2]))/2
