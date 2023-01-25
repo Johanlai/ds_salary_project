@@ -84,25 +84,31 @@ clean_salary = avg_per_hour_clean.apply(lambda x: str(x).lower().replace(' /yr',
 salary_cleaned = clean_salary.apply(lambda x: avg_range(x.strip()) if ' - ' in str(x) else x)
 cleaned_salary = salary_cleaned.apply(lambda x: x if np.nan else float(x))
 
-df['cleaned_salary'] = cleaned_salary
+df['salary_thousands'] = cleaned_salary.apply(lambda x: x if x==np.nan else float(x)/1000)
+df.drop(columns=['Salary','Salary estimate'], inplace=True)
+
 
 # Clean employees
 employees = df['Employees'].apply(lambda x: str(x).replace(' Employees','').replace('+',''))
 employees = employees.apply(lambda x: int(avg_range(x.strip())) if ' to '  in str(x) else x)
 employees = employees.apply(lambda x: np.nan if 'unknown'  in str(x).lower() else x)
-df['cleaned_employees'] = employees
+df['Employees'] = employees
 
 # Company revenue
-revenue = df['Company revenue'].apply(lambda x: str(x).replace(' (USD)','').replace('$','').replace('+ billion','000').replace('Less than ','').replace(' million ',' ').replace('1 million','1'))
+revenue = df['Company revenue'].apply(lambda x: str(x).replace('$','').replace('+ billion (USD)','000').replace(' (USD)','').replace('Less than ','').replace('million ','').replace('1 million','1'))
 revenue[revenue=='Unknown / Non-Applicable'] = np.nan
+# error with the range 500m to 1bn being counted as billions (+000)
+revenue = revenue.apply(lambda x: str(x).replace('500 to 1 billion','500 to 1000 million'))
 revenue = revenue.apply(lambda x: avg_range(str(x))*1000 if 'billion' in str(x) else avg_range(x) if 'million' in str(x) else x)
 revenue.value_counts()
-df['cleaned_revenue'] = revenue
+df['revenue'] = revenue
+df.drop(columns=['Company revenue'], inplace=True)
 
 # Founded
-founded = df.Founded.apply(lambda x: x if x==np.nan else 2023-x)
+founded = df.Founded.apply(lambda x: x if pd.isna(x) else int(2023-x))
 founded.value_counts()
-df['cleaned_founded'] = founded
+df['Founded'] = founded
+df.rename(columns={'Founded':'comp_age'}, inplace=True)
 
 # Check the other columns
 df['Company type'].value_counts()
@@ -200,7 +206,13 @@ def seniority(title):
 df['seniority_jobs'] = df['Job title'].apply(seniority) 
 df['seniority_jobs'].value_counts()
 #tst = df['Job title'][df['seniority_jobs']=='nan']
-   
+
+# Location
+#location = df['Location'].apply(lambda x: str(x).split()[0])
+#location.value_counts()
+
+#export
+df.to_csv('cleaned_data', index=False)
     
     
     
