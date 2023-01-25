@@ -138,7 +138,7 @@ git commit -m 'name_commit'
 git push origin master
 
 
-HELLOW TEST
+HELLOW TEsting
 ### END OF CLEAN
 # (float(hourly_clean[1400].split()[0])+float(hourly_clean[1400].split()[2]))/2
 
