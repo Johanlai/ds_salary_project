@@ -133,24 +133,75 @@ df.excel_yn.value_counts()
 # aws
 df['aws_yn'] = df.Description.apply(lambda x: 1 if 'aws' in x.lower() else 0)
 df.aws_yn.value_counts()
+# Jupyter
+df['jupyter_yn'] = df.Description.apply(lambda x: 1 if 'aws' in x.lower() else 0)
+df.jupyter_yn.value_counts()
 
-### END OF CLEAN
-# (float(hourly_clean[1400].split()[0])+float(hourly_clean[1400].split()[2]))/2
-
-
-
-
-hourly_clean = hourly_clean.apply(lambda x: str(x).replace(' /yr','').replace(',','').replace('k',''))
-
-# ---------------
-hourly_clean = merge_salary.apply(lambda x: x.split(' ') if '/hr' in str(x))
-
-merge_salary = merge_salary.apply(lambda x: x.replace('£','').replace(' /hr (est.)','') if '/hr' in x)      
-merge_salary.isna().sum()
-
-minus_kd[minus_kd.isna()]
-salary = df['Salary'].apply(lambda x: str(x).split('(')[0])
-minus_kd = salary.apply(lambda x: x.replace('K','').replace('£',''))
+# Description
+df['description_length'] = df['Description'].apply(lambda x: len(x.split()))
 
 
-1950*16
+# Simplifing job titles - this is much longer as i downloaded multiple different sets from various fields
+def title_simplifier(title):
+    if 'data scientist' in title.lower() or 'data science' in title.lower():
+        return 'data scientist'
+    elif 'data analyst' in title.lower():
+        return 'data analyst'
+    elif 'data engineer' in title.lower():
+        return 'data engineer'
+    elif 'developer' in title.lower():
+        return 'developer'
+    elif 'architect' in title.lower():
+        return 'architect'
+    elif 'econ' in title.lower():
+        return 'economist'
+    elif 'risk' in title.lower():
+        return 'risk'
+    elif 'machine learning' in title.lower():
+        return 'mle'
+    if 'analytics' in title.lower():
+        return 'data scientist'
+    elif 'quant' in title.lower() or 'stats' in title.lower():
+        return 'quant'
+    elif 'summer' in title.lower() or 'intern' in title.lower():
+        return 'intern'
+    elif 'business int' in title.lower():
+        return 'bi'
+    elif 'engineer' in title.lower() or 'test' in title.lower():
+        return 'engineer'
+    elif 'financ' in title.lower():
+        return 'finance'
+    elif 'bi' in title.lower():
+        return 'bi'
+    elif 'data' in title.lower():
+        return 'other data'
+    elif 'analyst' in title.lower():
+        return 'other analyst'
+    elif 'ai' in title.lower():
+        return 'mle'
+    else:
+        return 'nan'
+
+df['simplified_jobs'] = df['Job title'].apply(title_simplifier)
+
+#simplified_jobs.value_counts()
+#tst = df['Job title'][simplified_jobs=='nan']
+
+# Seniority
+
+def seniority(title):
+    if 'sr' in title.lower() or 'senior' in title.lower() or 'sr' in title.lower() or 'lead' in title.lower() or 'principal' in title.lower() or 'manager' in title.lower() or 'president' in title.lower() or 'consultant' in title.lower() or 'architect' in title.lower() or 'engineer' in title.lower() or 'scientist' in title.lower() or 'developer' in title.lower():
+            return 'snr'
+    elif 'junior' in title.lower() or 'jr.' in title.lower() or 'analyst' in title.lower() or 'graduate' in title.lower() or 'intern' in title.lower() or 'grad' in title.lower() or 'assist' in title.lower() or 'admin' in title.lower() or 'associate' in title.lower() or 'exec' in title.lower():
+        return 'jr'
+    else:
+        return 'nan'
+    
+df['seniority_jobs'] = df['Job title'].apply(seniority) 
+df['seniority_jobs'].value_counts()
+#tst = df['Job title'][df['seniority_jobs']=='nan']
+   
+    
+    
+    
+    
