@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 18 16:01:36 2023
-
-@author: JHL
-"""
-
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
 from selenium.webdriver.common.by import By
