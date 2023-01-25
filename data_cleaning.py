@@ -137,8 +137,7 @@ df.aws_yn.value_counts()
 git commit -m 'name_commit'
 git push origin master
 
-
-HELLOW TEsting
+authen
 ### END OF CLEAN
 # (float(hourly_clean[1400].split()[0])+float(hourly_clean[1400].split()[2]))/2
 
