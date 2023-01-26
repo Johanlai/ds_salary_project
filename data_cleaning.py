@@ -212,7 +212,7 @@ df['seniority_jobs'].value_counts()
 #location.value_counts()
 
 #export
-df.to_csv('cleaned_data', index=False)
+df.to_csv('cleaned_data.csv', index=False)
     
     
     
