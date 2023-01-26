@@ -169,9 +169,9 @@ def title_simplifier(title):
         return 'data scientist'
     elif 'quant' in title.lower() or 'stats' in title.lower():
         return 'quant'
-    elif 'summer' in title.lower() or 'intern' in title.lower():
+    elif 'summer analyst' in title.lower() or 'intern' in title.lower():
         return 'intern'
-    elif 'business int' in title.lower():
+    elif 'business inte' in title.lower():
         return 'bi'
     elif 'engineer' in title.lower() or 'test' in title.lower():
         return 'engineer'
