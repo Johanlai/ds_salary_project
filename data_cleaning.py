@@ -211,9 +211,11 @@ df['seniority_jobs'].value_counts()
 #location = df['Location'].apply(lambda x: str(x).split()[0])
 #location.value_counts()
 
+# From EDA - removed sectors with less than 20 obvs
+df = df[~df['Company sector'].isin(df['Company sector'].
+               value_counts()[df['Company sector'].value_counts()<20].index.tolist())]
 #export
 df.to_csv('cleaned_data.csv', index=False)
-    
     
     
     
