@@ -15,7 +15,6 @@ df.columns
 
 df_model = df[['salary_thousands','Employees', 'revenue','comp_age','Company type','Company industry','Company sector', 
                'simplified_jobs', 'seniority_jobs','em_provided_est', 'description_length',
-               'Career opportunities', 'Comp & Benefits', 'Culture & Values',
                'Senior Management', 'Work/Life Balance', 'comp_rate',
                'python_yn', 'R_yn', 'STATA_yn', 'SPSS_yn', 'spark_yn', 
                'sql_yn', 'excel_yn', 'aws_yn', 'jupyter_yn']]
@@ -44,7 +43,7 @@ from sklearn.model_selection import cross_val_score
 
 lm = LinearRegression()
 lm.fit(X_train, y_train)
-lm.
+
 
 cross_val_score(lm,X_train,y_train, scoring = 'neg_mean_absolute_error', cv= 10)
 np.mean(cross_val_score(lm,X_train,y_train, scoring = 'neg_mean_absolute_error', cv= 3))
@@ -108,4 +107,4 @@ with open(file_name, 'rb') as pickled:
 model.predict(np.array(list(X_test.iloc[1,:])).reshape(1,-1))[0]
 
 list(X_test.iloc[1,:])
-print('a')
+
