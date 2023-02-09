@@ -1,7 +1,7 @@
 # Data science project overview
 - Built a webscrapper to collect over 1700 job listings from glassdoors (selenium)
 - Engineered features from the listings to quantify company ratings and the value companies put on certain skills, such as python, aws, SQL, R, STATA
-
+- Optimized Linear, Lasso, and Random Forest Regressors using GridsearchCV to reach the best model.
 
 ## Code and Resources Used
 [Entire walkthrough **(Ken Jee)**](https://youtube.com/playlist?list=PL2zq7klxX5ASFejJj80ob9ZAnBHdz5O1t)<br>
